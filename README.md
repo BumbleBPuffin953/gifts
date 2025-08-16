@@ -1,1 +1,1 @@
-
+Calculates profit from expected drops and coins if you were to open jerry gifts with an alt/trusted person and share the spoils.
