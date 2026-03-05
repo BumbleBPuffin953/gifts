@@ -125,3 +125,8 @@ if st.button("Calculate Expected Profits"):
 
     st.subheader("Expected Profits")
     st.dataframe(results_df, use_container_width=True)
+
+st.subheader("LBIN Prices")
+lbin_df = pd.DataFrame(list(lbin_prices.items()), columns=["Item", "Price"])
+lbin_df["Price"] = lbin_df["Price"].apply(lambda x: f"{x:,.0f}")  # Format with commas
+st.dataframe(lbin_df, use_container_width=True)
