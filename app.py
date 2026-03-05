@@ -13,6 +13,7 @@ bazaar = fetch_bazaar()
 
 st.sidebar.header("Inputs")
 
+include_snow_minion = st.sidebar.checkbox("Include Snow Minion in LBIN Prices")
 snow_minion_t11_price = st.sidebar.number_input(
     "Snow Minion T11 Price",
     value=250000
@@ -54,11 +55,12 @@ lbin_items = {
 
 lbin_prices = fetch_lbins(lbin_items)
 
-lbin_prices['Snow Minion'] = (
-    snow_minion_t11_price
-    - bazaar['ENCHANTED_SNOW_BLOCK']['Sell'] * 248
-    - bazaar['SNOW_BLOCK']['Sell'] * 992
-)
+if include_snow_minion:
+    lbin_prices['Snow Minion'] = (
+        snow_minion_t11_price
+        - bazaar['ENCHANTED_SNOW_BLOCK']['Sell'] * 248
+        - bazaar['SNOW_BLOCK']['Sell'] * 992
+    )
 
 # -----------------------------
 # North Stars
