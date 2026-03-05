@@ -107,9 +107,22 @@ if st.button("Calculate Expected Profits"):
 
         results[color] = profit - bazaar[f"{color.upper()}_GIFT"]['Sell']
 
-    for color, profit in results.items():
+    st.subheader("Expected Profit")
 
-        st.metric(
-            f"{color.capitalize()} Gift",
-            f"{profit:,.0f} coins"
+    col1, col2 = st.columns(2)
+
+    for i, (color, profit) in enumerate(results.items()):
+
+        hourly_profit = profit * 256 * 60
+
+        with col1:
+            st.metric(
+                f"{color.capitalize()} Gift",
+                f"{profit:,.0f} coins"
         )
+
+        with col2:
+            st.metric(
+                f"{color.capitalize()} Gift (Hourly)",
+                f"{hourly_profit:,.0f} coins/hr"
+            )
