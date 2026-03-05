@@ -88,7 +88,7 @@ files = {
 
 if st.button("Calculate Expected Profits"):
 
-    results = {}
+    results = []
 
     for color, file in files.items():
         if file is None:
@@ -96,7 +96,7 @@ if st.button("Calculate Expected Profits"):
 
         df = pd.read_csv(file)
 
-        profit = coop * expected_profit(
+        expected = coop * expected_profit(
             color,
             df,
             lbin_prices,
@@ -104,26 +104,24 @@ if st.button("Calculate Expected Profits"):
             coin_bonus
         ) + coop * north_stars_expected_value[color] * int(north_star_override)
 
-        results[color] = profit
+        bazaar_price = bazaar[f"{color.upper()}_GIFT"]["Sell"]
+        profit = expected - bazaar_price
+        hourly_profit = expected * 256 * 60
+
+        results.append({
+            "Gift Color": color.capitalize(),
+            "Bazaar Price": bazaar_price,
+            "Profit": profit,
+            "Net Expected Profit": expected,
+            "Hourly Profit": hourly_profit
+        })
+
+    # Convert to DataFrame
+    results_df = pd.DataFrame(results)
+
+    # Format numbers with commas
+    results_df[["Bazaar Price", "Profit", "Net Expected Profit", "Hourly Profit"]] = \
+        results_df[["Bazaar Price", "Profit", "Net Expected Profit", "Hourly Profit"]].applymap(lambda x: f"{x:,.0f}")
 
     st.subheader("Expected Profits")
-
-    # Create 4 columns: Bazaar Price | Profit | Profit Display | Hourly Profit
-    col1, col2, col3, col4 = st.columns(4)
-
-    for color, profit in results.items():
-
-        bazaar_price = bazaar[f"{color.upper()}_GIFT"]["Sell"]
-        hourly_profit = profit * 256 * 60
-
-        with col1:
-            st.metric(f"{color.capitalize()} Gift Price", f"{bazaar_price:,.0f} coins")
-
-        with col2:
-            st.metric(f"{color.capitalize()} Gift Profit", f"{profit - bazaar_price:,.0f} coins")
-
-        with col3:
-            st.metric(f"{color.capitalize()} Gift Net", f"{profit:,.0f} coins")
-
-        with col4:
-            st.metric(f"{color.capitalize()} Gift (Hourly)", f"{hourly_profit:,.0f} coins/hr")
+    st.dataframe(results_df, use_container_width=True)
