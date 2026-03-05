@@ -91,7 +91,6 @@ if st.button("Calculate Expected Profits"):
     results = {}
 
     for color, file in files.items():
-
         if file is None:
             continue
 
@@ -105,24 +104,26 @@ if st.button("Calculate Expected Profits"):
             coin_bonus
         ) + coop * north_stars_expected_value[color] * int(north_star_override)
 
-        results[color] = profit - bazaar[f"{color.upper()}_GIFT"]['Sell']
+        results[color] = profit
 
-    st.subheader("Expected Profit")
+    st.subheader("Expected Profits")
 
-    col1, col2 = st.columns(2)
+    # Create 4 columns: Bazaar Price | Profit | Profit Display | Hourly Profit
+    col1, col2, col3, col4 = st.columns(4)
 
-    for i, (color, profit) in enumerate(results.items()):
+    for color, profit in results.items():
 
+        bazaar_price = bazaar[f"{color.upper()}_GIFT"]["Sell"]
         hourly_profit = profit * 256 * 60
 
         with col1:
-            st.metric(
-                f"{color.capitalize()} Gift",
-                f"{profit:,.0f} coins"
-        )
+            st.metric(f"{color.capitalize()} Gift Price", f"{bazaar_price:,.0f} coins")
 
         with col2:
-            st.metric(
-                f"{color.capitalize()} Gift (Hourly)",
-                f"{hourly_profit:,.0f} coins/hr"
-            )
+            st.metric(f"{color.capitalize()} Gift Profit", f"{profit - bazaar_price:,.0f} coins")
+
+        with col3:
+            st.metric(f"{color.capitalize()} Gift Net", f"{profit:,.0f} coins")
+
+        with col4:
+            st.metric(f"{color.capitalize()} Gift (Hourly)", f"{hourly_profit:,.0f} coins/hr")
