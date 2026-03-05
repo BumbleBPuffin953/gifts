@@ -120,8 +120,8 @@ if st.button("Calculate Expected Profits"):
     results_df = pd.DataFrame(results)
 
     # Format numbers with commas
-    results_df[["Bazaar Price", "Profit", "Net Expected Profit", "Hourly Profit"]] = \
-        results_df[["Bazaar Price", "Profit", "Net Expected Profit", "Hourly Profit"]].applymap(lambda x: f"{x:,.0f}")
+    results_df[["Bazaar Price", "Expected Value", "Profit per gift", "Hourly Profit"]] = \
+        results_df[["Bazaar Price", "Expected Value", "Profit per gift", "Hourly Profit"]].applymap(lambda x: f"{x:,.0f}")
 
     st.subheader("Expected Profits")
     st.dataframe(results_df, use_container_width=True)
