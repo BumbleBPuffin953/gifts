@@ -31,7 +31,7 @@ coop = 1 + int(coop_bool)
 
 st.sidebar.subheader("Toggles")
 north_star_override = st.sidebar.checkbox("Include North Stars")
-include_snow_minion = st.sidebar.checkbox("Include Snow Minion in LBIN Prices")
+include_snow_minion = st.sidebar.checkbox("Include Snow Minion")
 snow_minion_t11_price = st.sidebar.number_input(
     "Snow Minion T11 Price",
     value=250000
