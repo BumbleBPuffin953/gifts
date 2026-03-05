@@ -66,11 +66,11 @@ if include_snow_minion:
 # North Stars
 # -----------------------------
 
-north_star_price = min(
-    bazaar['ENCHANTMENT_LUCK_6']['Buy'],
-    bazaar['ENCHANTMENT_SCAVENGER_4']['Buy'],
+north_star_price = (
+    bazaar['ENCHANTMENT_LUCK_6']['Buy'] +
+    bazaar['ENCHANTMENT_SCAVENGER_4']['Buy'] +
     bazaar['ENCHANTMENT_LOOTING_4']['Buy']
-) / 10
+) / 30
 
 north_stars_expected_value = {
     "white": north_star_price * 0.1,
