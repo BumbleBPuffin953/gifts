@@ -111,8 +111,8 @@ if st.button("Calculate Expected Profits"):
         results.append({
             "Gift Color": color.capitalize(),
             "Bazaar Price": bazaar_price,
-            "Profit": profit,
-            "Net Expected Profit": expected,
+            "Expected Value": expected,
+            "Profit per gift": profit,
             "Hourly Profit": hourly_profit
         })
 
