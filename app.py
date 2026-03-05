@@ -12,13 +12,6 @@ bazaar = fetch_bazaar()
 # -----------------------------
 
 st.sidebar.header("Inputs")
-
-include_snow_minion = st.sidebar.checkbox("Include Snow Minion in LBIN Prices")
-snow_minion_t11_price = st.sidebar.number_input(
-    "Snow Minion T11 Price",
-    value=250000
-)
-
 st.sidebar.subheader("Coin Bonuses")
 
 gold_talisman = st.sidebar.checkbox("Gold Gift Talisman (+25%)")
@@ -36,8 +29,13 @@ st.sidebar.subheader("Co-op Settings")
 coop_bool = st.sidebar.checkbox("Opening with Coop")
 coop = 1 + int(coop_bool)
 
-st.sidebar.subheader("North Stars")
+st.sidebar.subheader("Toggles")
 north_star_override = st.sidebar.checkbox("Include North Stars")
+include_snow_minion = st.sidebar.checkbox("Include Snow Minion in LBIN Prices")
+snow_minion_t11_price = st.sidebar.number_input(
+    "Snow Minion T11 Price",
+    value=250000
+)
 
 # -----------------------------
 # LBIN Prices
