@@ -50,6 +50,7 @@ with st.sidebar.form("settings_form"):
     st.subheader("Toggles")
     north_star_override = st.checkbox("Include North Stars")
     include_snow_minion = st.checkbox("Include Snow Minion")
+    coins_only = st.checkbox("Coins Only")
     snow_minion_t11_price = st.number_input(
         "Snow Minion T11 Price",
         value=250_000
@@ -77,6 +78,9 @@ if submitted:
             - bazaar['ENCHANTED_SNOW_BLOCK']['Sell'] * 248
             - bazaar['SNOW_BLOCK']['Sell'] * 992
         )
+    if coins_only:
+        for item in lbin_prices:
+            lbin_prices[item] = 0
 
     # Calculate expected profits for each gift type
     results = []
