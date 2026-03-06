@@ -78,6 +78,7 @@ if submitted:
             - bazaar['ENCHANTED_SNOW_BLOCK']['Sell'] * 248
             - bazaar['SNOW_BLOCK']['Sell'] * 992
         )
+        
     if coins_only:
         for item in lbin_prices:
             lbin_prices[item] = 0
