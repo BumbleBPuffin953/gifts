@@ -40,7 +40,7 @@ def apply_price_overrides(df, price_map, coin_bonus, weight_col="Weight", price_
     df[price_col] *= factor
     return df
 
-def expected_profit(color, df, price_map, bazaar, coin_bonus):
+def expected_profit(color, df, price_map, bazaar, coin_bonus, coop):
     df = apply_price_overrides(df, price_map, coin_bonus)
-    profit = 2 * df["Price"].sum() - bazaar[f"{color.upper()}_GIFT"]["Sell"]
+    profit = coop * df["Price"].sum() - bazaar[f"{color.upper()}_GIFT"]["Sell"]
     return profit
