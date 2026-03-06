@@ -7,10 +7,6 @@ st.title("Skyblock Gift Profit Calculator")
 
 bazaar = fetch_bazaar()
 
-# -----------------------------
-# Sidebar Inputs
-# -----------------------------
-
 st.sidebar.header("Inputs")
 st.sidebar.subheader("Coin Bonuses")
 
@@ -37,10 +33,6 @@ snow_minion_t11_price = st.sidebar.number_input(
     value=250000
 )
 
-# -----------------------------
-# LBIN Prices
-# -----------------------------
-
 lbin_items = {
     'CRYOPOWDER_SHARD',
     'GOLD_GIFT',
@@ -64,10 +56,6 @@ if include_snow_minion:
         - bazaar['SNOW_BLOCK']['Sell'] * 992
     )
 
-# -----------------------------
-# North Stars
-# -----------------------------
-
 north_star_price = (
     bazaar['ENCHANTMENT_LUCK_6']['Buy'] +
     bazaar['ENCHANTMENT_SCAVENGER_4']['Buy'] +
@@ -86,10 +74,6 @@ files = {
     "red": "red.csv",
     "party": "party.csv"
 }
-
-# -----------------------------
-# Calculate
-# -----------------------------
 
 if st.button("Calculate Expected Profits"):
 
@@ -125,10 +109,8 @@ if st.button("Calculate Expected Profits"):
             "Hourly Profit": hourly_profit
         })
 
-    # Convert to DataFrame
     results_df = pd.DataFrame(results)
 
-    # Format numbers with commas
     results_df[["Bazaar Price", "Expected Value", "Profit per gift", "Hourly Profit"]] = \
         results_df[["Bazaar Price", "Expected Value", "Profit per gift", "Hourly Profit"]].applymap(lambda x: f"{x:,.0f}")
 
