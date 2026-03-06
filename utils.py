@@ -31,7 +31,8 @@ def fetch_bazaar():
 
 def apply_price_overrides(df, price_map, coin_bonus, weight_col="Weight", price_col="Price"):
     df = df.copy()
-    df[price_col] *= coin_bonus
+    coin_mask = df["Item"] == "COINS"
+    df.loc[coin_mask, price_col] *= coin_bonus
     mask = df["Item"].isin(price_map)
     df.loc[mask, price_col] = df.loc[mask, "Item"].map(price_map)
     weights = df[weight_col]

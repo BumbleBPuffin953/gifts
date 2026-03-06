@@ -76,15 +76,11 @@ files = {
 }
 
 if st.button("Calculate Expected Profits"):
-
     results = []
-
     for color, file in files.items():
         if file is None:
             continue
-
         df = pd.read_csv(file)
-
         expected = coop * expected_profit(
             color,
             df,
@@ -92,15 +88,11 @@ if st.button("Calculate Expected Profits"):
             bazaar,
             coin_bonus
         )
-
-
         if color in north_stars_expected_value and north_star_override:
             expected += coop * north_stars_expected_value[color]
-
         bazaar_price = bazaar[f"{color.upper()}_GIFT"]["Sell"]
         profit = expected - bazaar_price
         hourly_profit = profit * 256 * 60
-
         results.append({
             "Gift Color": color.capitalize(),
             "Bazaar Price": bazaar_price,
@@ -108,15 +100,12 @@ if st.button("Calculate Expected Profits"):
             "Profit per gift": profit,
             "Hourly Profit": hourly_profit
         })
-
     results_df = pd.DataFrame(results)
-
     results_df[["Bazaar Price", "Expected Value", "Profit per gift", "Hourly Profit"]] = \
         results_df[["Bazaar Price", "Expected Value", "Profit per gift", "Hourly Profit"]].applymap(lambda x: f"{x:,.0f}")
-
     st.subheader("Expected Profits")
     st.dataframe(results_df, use_container_width=True)
-
+    
 st.subheader("LBIN Prices")
 lbin_df = pd.DataFrame(list(lbin_prices.items()), columns=["Item", "Price"])
 lbin_df["Price"] = lbin_df["Price"].apply(lambda x: f"{x:,.0f}")  # Format with commas
