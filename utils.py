@@ -3,12 +3,26 @@ import requests
 
 
 def fetch_lbins(item_ids):
-
     def get_price(item):
-        data = requests.get(
-            f"https://sky.coflnet.com/api/auctions/tag/{item}/active/bin"
-        ).json()
-        return data[0]["startingBid"] if data else 0
+        try:
+            response = requests.get(
+                f"https://sky.coflnet.com/api/auctions/tag/{item}/active/bin"
+            )
+            response.raise_for_status()  # will raise for HTTP errors
+            data = response.json()
+
+            # Check if data is a list
+            if isinstance(data, list) and len(data) > 0:
+                return data[0].get("startingBid", 0)
+            
+            # If data is a dict with auctions list
+            if isinstance(data, dict) and "auctions" in data and data["auctions"]:
+                return data["auctions"][0].get("startingBid", 0)
+
+            return 0
+        except Exception as e:
+            print(f"Error fetching {item}: {e}")
+            return 0
 
     return {item: get_price(item) for item in item_ids}
 
