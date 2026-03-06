@@ -115,7 +115,7 @@ if st.button("Calculate Expected Profits"):
 
         bazaar_price = bazaar[f"{color.upper()}_GIFT"]["Sell"]
         profit = expected - bazaar_price
-        hourly_profit = expected * 256 * 60
+        hourly_profit = profit * 256 * 60
 
         results.append({
             "Gift Color": color.capitalize(),
