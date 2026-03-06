@@ -47,11 +47,7 @@ lbin_items = {
     'KRAMPUS_HELMET',
     'NEW_BOTTLE_OF_JYRRE',
     'PET_SNOWMAN',
-    'WINTER_ISLAND',
-    'SNOW_SUIT_HELMET',
-    'SNOW_SUIT_CHESTPLATE',
-    'SNOW_SUIT_LEGGINGS',
-    'SNOW_SUIT_BOOTS'
+    'WINTER_ISLAND'
 }
 
 lbin_prices = fetch_lbins(lbin_items)
