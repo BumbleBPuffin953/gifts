@@ -42,7 +42,7 @@ snow_minion_t11_price = st.sidebar.number_input(
 # -----------------------------
 
 lbin_items = {
-    'CRYOPOWDER_SHARD'
+    'CRYOPOWDER_SHARD',
     'GOLD_GIFT',
     'KRAMPUS_HELMET',
     'NEW_BOTTLE_OF_JYRRE',
