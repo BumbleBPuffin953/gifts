@@ -47,7 +47,12 @@ lbin_items = {
     'KRAMPUS_HELMET',
     'NEW_BOTTLE_OF_JYRRE',
     'PET_SNOWMAN',
-    'WINTER_ISLAND'
+    'WINTER_ISLAND',
+    "PARTY_THE_FISH",
+    "PARTY_HAT",
+    "PARTY_GLOVES",
+    "PARTY_CLOAK",
+    "SNOWMAN_MASK"
 }
 
 lbin_prices = fetch_lbins(lbin_items)
@@ -79,6 +84,7 @@ files = {
     "white": "white.csv",
     "green": "green.csv",
     "red": "red.csv"
+    "party": "party.csv"
 }
 
 # -----------------------------
@@ -101,7 +107,11 @@ if st.button("Calculate Expected Profits"):
             lbin_prices,
             bazaar,
             coin_bonus
-        ) + coop * north_stars_expected_value[color] * int(north_star_override)
+        )
+
+
+        if color in north_stars_expected_value and north_star_override:
+            expected += coop * north_stars_expected_value[color]
 
         bazaar_price = bazaar[f"{color.upper()}_GIFT"]["Sell"]
         profit = expected - bazaar_price
