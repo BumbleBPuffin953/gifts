@@ -29,18 +29,23 @@ def fetch_bazaar():
         for k, v in r["products"].items()
     }
 
-def apply_price_overrides(df, price_map, coin_bonus, weight_col="Weight", price_col="Price"):
-    df = df.copy()
-    coin_mask = df["Item"] == "COINS"
-    df.loc[coin_mask, price_col] *= coin_bonus
-    mask = df["Item"].isin(price_map)
-    df.loc[mask, price_col] = df.loc[mask, "Item"].map(price_map)
-    weights = df[weight_col]
-    factor = weights / weights.sum()
-    df[price_col] *= factor
-    return df
+def expected_value(df, lbin_prices, coin_bonus):
+    total_weight = df["Weight"].sum()
+    ev = 0
+    for _, row in df.iterrows():
+        item = row["Item"]
+        weight = row["Weight"]
+        base_price = row["Price"]
 
-def expected_profit(color, df, price_map, bazaar, coin_bonus, coop):
-    df = apply_price_overrides(df, price_map, coin_bonus)
-    profit = coop * df["Price"].sum() - bazaar[f"{color.upper()}_GIFT"]["Sell"]
-    return profit
+        p = weight / total_weight
+
+        if item == "COINS":
+            value = base_price * coin_bonus
+        elif item in lbin_prices:
+            value = lbin_prices[item]
+        else:
+            value = base_price
+
+        ev += p * value
+
+    return ev
