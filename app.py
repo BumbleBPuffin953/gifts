@@ -83,7 +83,7 @@ north_stars_expected_value = {
 files = {
     "white": "white.csv",
     "green": "green.csv",
-    "red": "red.csv"
+    "red": "red.csv",
     "party": "party.csv"
 }
 
