@@ -58,11 +58,7 @@ with st.sidebar.form("settings_form"):
 
     # Submit button inside the form
     st.subheader("North Star Price")
-
-    st.metric(
-        label="Price per North Star",
-        value=f"{north_star_price:,.0f} coins"
-    )
+    st.markdown(f"# {north_star_price:,.0f} coins")
     submitted = st.form_submit_button("Calculate Expected Profits")
 
 # --------------------------
