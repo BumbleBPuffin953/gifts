@@ -50,11 +50,11 @@ with st.sidebar.form("settings_form"):
     st.subheader("Toggles")
     north_star_override = st.checkbox("Include North Stars")
     include_snow_minion = st.checkbox("Include Snow Minion")
-    coins_only = st.checkbox("Coins Only")
     snow_minion_t1_price = st.number_input(
         "Snow Minion T1 Price",
         value=50_000
     )
+    coins_only = st.checkbox("Coins Only")
 
     # Submit button inside the form
     submitted = st.form_submit_button("Calculate Expected Profits")
