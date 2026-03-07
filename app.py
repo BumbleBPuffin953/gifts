@@ -78,7 +78,7 @@ if submitted:
             - bazaar['ENCHANTED_SNOW_BLOCK']['Sell'] * 248
             - bazaar['SNOW_BLOCK']['Sell'] * 992
         )
-        
+
     if coins_only:
         for item in lbin_prices:
             lbin_prices[item] = 0
@@ -95,14 +95,14 @@ if submitted:
         ev *= coop
         gift_price = bazaar[f"{color.upper()}_GIFT"]["Sell"]
         profit = ev - gift_price
-        hourly_profit = profit * 256 * 60
+        hourly_profit = profit * 2240
 
         results.append({
             "Gift Color": color.capitalize(),
             "Bazaar Price": f"{gift_price:,.0f}",
             "Expected Value": f"{ev:,.0f}",
             "Profit per Gift": f"{profit:,.0f}",
-            "Hourly Profit": f"{hourly_profit:,.0f}"
+            "Profit Per Inventory": f"{hourly_profit:,.0f}"
         })
 
     st.subheader("Expected Profits")
