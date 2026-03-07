@@ -51,9 +51,9 @@ with st.sidebar.form("settings_form"):
     north_star_override = st.checkbox("Include North Stars")
     include_snow_minion = st.checkbox("Include Snow Minion")
     coins_only = st.checkbox("Coins Only")
-    snow_minion_t11_price = st.number_input(
-        "Snow Minion T11 Price",
-        value=250_000
+    snow_minion_t1_price = st.number_input(
+        "Snow Minion T1 Price",
+        value=50_000
     )
 
     # Submit button inside the form
@@ -73,11 +73,7 @@ if submitted:
 
     # Include snow minion if toggled
     if include_snow_minion:
-        lbin_prices['Snow Minion'] = (
-            snow_minion_t11_price
-            - bazaar['ENCHANTED_SNOW_BLOCK']['Sell'] * 248
-            - bazaar['SNOW_BLOCK']['Sell'] * 992
-        )
+        lbin_prices['Snow Minion'] = snow_minion_t1_price
 
     if coins_only:
         for item in lbin_prices:
