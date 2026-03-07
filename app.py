@@ -57,8 +57,7 @@ with st.sidebar.form("settings_form"):
     coins_only = st.checkbox("Coins Only")
 
     # Submit button inside the form
-    st.subheader("North Star Price")
-    st.markdown(f"# {north_star_price:,.0f} coins")
+    st.markdown(f"North Stars Value: # {north_star_price:,.0f}")
     submitted = st.form_submit_button("Calculate Expected Profits")
 
 # --------------------------
