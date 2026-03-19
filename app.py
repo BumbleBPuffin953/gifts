@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from utils import fetch_lbins, fetch_bazaar, expected_value
+from utils import fetch_recent_avg, fetch_bazaar, expected_value
 
 st.title("Skyblock Gift Profit Calculator")
 
@@ -12,7 +12,7 @@ lbin_items = {
     "PARTY_THE_FISH", "PARTY_HAT", "PARTY_GLOVES",
     "PARTY_CLOAK", "SNOWMAN_MASK"
 }
-lbin_prices = fetch_lbins(lbin_items)
+lbin_prices = fetch_recent_avg(lbin_items)
 
 # North star expected value
 north_star_price = (

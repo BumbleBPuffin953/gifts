@@ -1,23 +1,27 @@
 import pandas as pd
 import requests
 
-def fetch_lbins(item_ids):
-    def get_price(item):
+def fetch_recent_avg(item_ids):
+    def avg_price(item):
         try:
-            response = requests.get(
-                f"https://sky.coflnet.com/api/auctions/tag/{item}/active/bin"
-            )
-            response.raise_for_status()
-            data = response.json()
-            if isinstance(data, list) and len(data) > 0:
-                return data[0].get("startingBid", 0)
-            if isinstance(data, dict) and "auctions" in data and data["auctions"]:
-                return data["auctions"][0].get("startingBid", 0)
+            data = requests.get(
+                f"https://sky.coflnet.com/api/auctions/tag/{item}/sold"
+            ).json()
+
+            auctions = data if isinstance(data, list) else data.get("auctions", [])
+
+            prices = [
+                a["startingBid"]
+                for a in auctions[:10]
+                if a.get("bin") and a.get("startingBid")
+            ]
+
+            return sum(prices) / len(prices) if prices else 0
+
+        except:
             return 0
-        except Exception as e:
-            print(f"Error fetching {item}: {e}")
-            return 0
-    return {item: get_price(item) for item in item_ids}
+
+    return {item: avg_price(item) for item in item_ids}
 
 def fetch_bazaar():
     r = requests.get("https://api.hypixel.net/v2/skyblock/bazaar").json()
