@@ -13,7 +13,12 @@ def fetch_recent_avg(item_ids):
             prices = [
                 a["startingBid"]
                 for a in auctions[:10]
-                if a.get("bin") and a.get("startingBid")
+                if a.get("bin")
+                and a.get("startingBid")
+                and (
+                    item != "PET_SNOWMAN"
+                    or a.get("itemName") == "[Lvl 1] Snowman"
+                )
             ]
 
             return sum(prices) / len(prices) if prices else 0
