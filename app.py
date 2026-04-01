@@ -83,7 +83,7 @@ if submitted:
     sell_results = []
     buy_results = []
 
-    # Calculate expected profits for each gift type
+ # Calculate expected profits for each gift type
     for color, file in gift_files.items():
         df = pd.read_csv(file)
         ev = expected_value(df, lbin_prices, coin_bonus)
@@ -120,18 +120,12 @@ if submitted:
             "Profit Per Inventory": f"{buy_hourly:,.0f}"
         })
 
-    # --------------------------
-    # Display Tables Side-by-Side
-    # --------------------------
-    col1, col2 = st.columns(2)
 
-    with col1:
-        st.subheader("Expected Profits (Sell Price)")
-        st.dataframe(pd.DataFrame(sell_results), use_container_width=True)
+    st.subheader("Expected Profits (Sell Price)")
+    st.dataframe(pd.DataFrame(sell_results), use_container_width=True)
 
-    with col2:
-        st.subheader("Expected Profits (Buy Price)")
-        st.dataframe(pd.DataFrame(buy_results), use_container_width=True)
+    st.subheader("Expected Profits (Buy Price)")
+    st.dataframe(pd.DataFrame(buy_results), use_container_width=True)
 
 # --------------------------
 # LBIN Prices table
