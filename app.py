@@ -56,7 +56,6 @@ with st.sidebar.form("settings_form"):
     )
     coins_only = st.checkbox("Coins Only")
 
-    # Submit button inside the form
     st.markdown(f"North Stars Value: {north_star_price:,.0f}")
     submitted = st.form_submit_button("Calculate Expected Profits")
 
@@ -80,8 +79,11 @@ if submitted:
         for item in lbin_prices:
             lbin_prices[item] = 0
 
+    # Two result tables
+    sell_results = []
+    buy_results = []
+
     # Calculate expected profits for each gift type
-    results = []
     for color, file in gift_files.items():
         df = pd.read_csv(file)
         ev = expected_value(df, lbin_prices, coin_bonus)
@@ -90,20 +92,46 @@ if submitted:
             ev += north_stars_expected_value[color]
 
         ev *= coop
-        gift_price = bazaar[f"{color.upper()}_GIFT"]["Sell"]
-        profit = ev - gift_price
-        hourly_profit = profit * 2240
 
-        results.append({
+        sell_price = bazaar[f"{color.upper()}_GIFT"]["Sell"]
+        buy_price = bazaar[f"{color.upper()}_GIFT"]["Buy"]
+
+        # --- SELL TABLE ---
+        sell_profit = ev - sell_price
+        sell_hourly = sell_profit * 2240
+
+        sell_results.append({
             "Gift Color": color.capitalize(),
-            "Bazaar Price": f"{gift_price:,.0f}",
+            "Bazaar Sell Price": f"{sell_price:,.0f}",
             "Expected Value": f"{ev:,.0f}",
-            "Profit per Gift": f"{profit:,.0f}",
-            "Profit Per Inventory": f"{hourly_profit:,.0f}"
+            "Profit per Gift": f"{sell_profit:,.0f}",
+            "Profit Per Inventory": f"{sell_hourly:,.0f}"
         })
 
-    st.subheader("Expected Profits")
-    st.dataframe(pd.DataFrame(results), use_container_width=True)
+        # --- BUY TABLE ---
+        buy_profit = ev - buy_price
+        buy_hourly = buy_profit * 2240
+
+        buy_results.append({
+            "Gift Color": color.capitalize(),
+            "Bazaar Buy Price": f"{buy_price:,.0f}",
+            "Expected Value": f"{ev:,.0f}",
+            "Profit per Gift": f"{buy_profit:,.0f}",
+            "Profit Per Inventory": f"{buy_hourly:,.0f}"
+        })
+
+    # --------------------------
+    # Display Tables Side-by-Side
+    # --------------------------
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.subheader("Expected Profits (Sell Price)")
+        st.dataframe(pd.DataFrame(sell_results), use_container_width=True)
+
+    with col2:
+        st.subheader("Expected Profits (Buy Price)")
+        st.dataframe(pd.DataFrame(buy_results), use_container_width=True)
 
 # --------------------------
 # LBIN Prices table
