@@ -76,10 +76,8 @@ if submitted:
         if north_star_override and color in north_stars_expected_value:
             ev += north_stars_expected_value[color]
 
-        ev *= coop
-
-        sell_price = bazaar[f"{color.upper()}_GIFT"]["Sell"]
-        buy_price = bazaar[f"{color.upper()}_GIFT"]["Buy"]
+        sell_price = bazaar[f"{color.upper()}_GIFT"]["Sell"] / coop 
+        buy_price = bazaar[f"{color.upper()}_GIFT"]["Buy"] / coop
 
         # --- SELL TABLE ---
         sell_profit = ev - sell_price
