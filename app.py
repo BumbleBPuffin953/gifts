@@ -95,14 +95,14 @@ if submitted:
 
         # --- BUY TABLE ---
         buy_profit = ev - buy_price
-        buy_hourly = buy_profit * 2240
+        buy_hourly = buy_profit * 192 * 60
 
         buy_results.append({
             "Gift Color": color.capitalize(),
             "Bazaar Buy Price": f"{buy_price:,.0f}",
             "Expected Value": f"{ev:,.0f}",
             "Profit per Gift": f"{buy_profit:,.0f}",
-            "Profit Per Inventory": f"{buy_hourly:,.0f}"
+            "Profit Per Hour": f"{buy_hourly:,.0f}"
         })
 
 
