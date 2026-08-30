@@ -58,7 +58,6 @@ if submitted:
         (0.10 if snowman_mask else 0)
     )
     coop = 1 + int(coop_bool)
-    lbin_prices *= int(coop_bool)
 
     # Two result tables
     sell_results = []
