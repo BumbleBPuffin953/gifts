@@ -83,7 +83,7 @@ if submitted:
 
         # --- SELL TABLE ---
         sell_profit = ev - sell_price
-        sell_hourly = sell_profit * 2240
+        sell_hourly = sell_profit * 192 * 60
 
         sell_results.append({
             "Gift Color": color.capitalize(),
