@@ -48,7 +48,7 @@ with st.sidebar.form("settings_form"):
     st.markdown(f"North Stars Value: {north_star_price:,.0f}")
 
     st.subheader("Co-op Settings")
-    coop_bool = st.checkbox("Opening with Coop")
+    coop_bool = st.checkbox("Item Toggle")
 
     submitted = st.form_submit_button("Calculate Expected Profits")
 
