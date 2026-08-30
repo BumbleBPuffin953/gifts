@@ -46,15 +46,7 @@ with st.sidebar.form("settings_form"):
 
     st.subheader("Co-op Settings")
     coop_bool = st.checkbox("Opening with Coop")
-
-    st.subheader("Toggles")
     north_star_override = st.checkbox("Include North Stars")
-    include_snow_minion = st.checkbox("Include Snow Minion")
-    snow_minion_t1_price = st.number_input(
-        "Snow Minion T1 Price",
-        value=50_000
-    )
-    coins_only = st.checkbox("Coins Only")
 
     st.markdown(f"North Stars Value: {north_star_price:,.0f}")
     submitted = st.form_submit_button("Calculate Expected Profits")
@@ -70,14 +62,6 @@ if submitted:
         (0.10 if snowman_mask else 0)
     )
     coop = 1 + int(coop_bool)
-
-    # Include snow minion if toggled
-    if include_snow_minion:
-        lbin_prices['Snow Minion'] = snow_minion_t1_price
-
-    if coins_only:
-        for item in lbin_prices:
-            lbin_prices[item] = 0
 
     # Two result tables
     sell_results = []
@@ -126,11 +110,3 @@ if submitted:
 
     st.subheader("Expected Profits (Buy Price)")
     st.dataframe(pd.DataFrame(buy_results), use_container_width=True)
-
-# --------------------------
-# LBIN Prices table
-# --------------------------
-st.subheader("LBIN Prices")
-lbin_df = pd.DataFrame(list(lbin_prices.items()), columns=["Item", "Price"])
-lbin_df["Price"] = lbin_df["Price"].apply(lambda x: f"{x:,.0f}")
-st.dataframe(lbin_df, use_container_width=True)
