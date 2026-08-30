@@ -43,12 +43,13 @@ with st.sidebar.form("settings_form"):
     gold_talisman = st.checkbox("Gold Gift Talisman (+25%)")
     carnival = st.checkbox("Carnival (+10%)")
     snowman_mask = st.checkbox("Snowman Mask (+10%)")
-
-    st.subheader("Co-op Settings")
-    coop_bool = st.checkbox("Opening with Coop")
     north_star_override = st.checkbox("Include North Stars")
 
     st.markdown(f"North Stars Value: {north_star_price:,.0f}")
+
+    st.subheader("Co-op Settings")
+    coop_bool = st.checkbox("Opening with Coop")
+
     submitted = st.form_submit_button("Calculate Expected Profits")
 
 # --------------------------
